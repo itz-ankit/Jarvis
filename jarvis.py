@@ -96,7 +96,8 @@ if __name__ == "__main__":
 
         elif 'open honkai' in query:
             honkPath="E:\\Honkai Impact 3rd glb\\launcher.exe"
-            os.startfile(honkPath)       
+            os.startfile(honkPath)
+                   
 
         # elif 'email to myself' in query:
             # try:
