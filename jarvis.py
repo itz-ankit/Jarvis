@@ -94,9 +94,7 @@ if __name__ == "__main__":
             codePath = "C:\\Users\\OMEN\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
             os.startfile(codePath)
 
-        elif 'open honkai' in query:
-            honkPath="E:\\Honkai Impact 3rd glb\\launcher.exe"
-            os.startfile(honkPath)       
+          
 
         # elif 'email to myself' in query:
             # try:
