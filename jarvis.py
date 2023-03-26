@@ -98,7 +98,6 @@ if __name__ == "__main__":
             honkPath="E:\\Honkai Impact 3rd glb\\launcher.exe"
             os.startfile(honkPath)
                    
-
         # elif 'email to myself' in query:
             # try:
                 # speak("What should I say")                 
