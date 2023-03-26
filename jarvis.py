@@ -64,16 +64,16 @@ if __name__ == "__main__":
             speak(results)
 
         elif 'open youtube' in query:
-            webbrowser.open("youtube.com")
+            webbrowser.open("https://www.youtube.com")
 
         elif 'open google' in query:
-            webbrowser.open("google.com")
+            webbrowser.open("https://www.google.com")
 
         elif 'open chat gpt' in query:
-            webbrowser.open("openai.com")
+            webbrowser.open("https://www.openai.com")
 
         elif 'open git' in query:
-            webbrowser.open("github.com")    
+            webbrowser.open("https://www.github.com")    
 
         elif 'play music' in query:
             music_dir=''
