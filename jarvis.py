@@ -51,8 +51,24 @@ if __name__ == "__main__":
     wishMe()
     while True:
         query = takeCommand().lower()
+
+        if 'iris switch back' in query:
+            engine=pyttsx3.init('sapi5')
+            voices=engine.getProperty('voices')
+            #print(voices[0].id)
+            engine.setProperty('voice',voices[0].id)
+            speak('Jarvis here Sir!')
+
         if not 'jarvis' in query:
             continue
+
+        if 'switch' in query:
+            engine=pyttsx3.init('sapi5')
+            voices=engine.getProperty('voices')
+            #print(voices[0].id)
+            engine.setProperty('voice',voices[1].id)
+            speak('Hello there. I am Iris at your service master')
+   
 
         # Logic for executing tasks based on query
         if 'wikipedia' in query:
