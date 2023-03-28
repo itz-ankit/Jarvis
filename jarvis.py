@@ -4,6 +4,9 @@ import datetime
 import wikipedia
 import webbrowser
 import os
+import smtplib
+from googletrans import Translator
+
 
 engine=pyttsx3.init('sapi5')
 voices=engine.getProperty('voices')
@@ -47,8 +50,18 @@ def takeCommand():
         return "None"
     return query        
 
+#Not using my email and password for security issues
+def sendEmail(to,content):
+    server=smtplib.SMTP('smtp.gmail.com',587)
+    server.ehlo
+    server.starttls()
+    server.login('your-email@gmail.com', 'your-password')
+    server.sendmail('your-email@gmail.com', to, content)
+    server.close()
+
 if __name__ == "__main__":
     wishMe()
+    
     while True:
         query = takeCommand().lower()
 
@@ -114,9 +127,30 @@ if __name__ == "__main__":
             honkPath="E:\\Honkai Impact 3rd glb\\launcher.exe"
             os.startfile(honkPath)
                    
-        # elif 'email to myself' in query:
-            # try:
-                # speak("What should I say")                 
+        elif 'email to myself' in query:
+            try:
+                speak("What should I say?")
+                content=takeCommand()
+                to="your-email@gmail.com" #your email goes here
+                sendEmail(to,content)
+                speak("Email has been sent!")
+            except Exception as e:
+                print(e)
+                speak("Sorry Sir. I am not able to send this email")
+
+        elif 'translate' in query:
+            try:
+                speak("Please provide me with the passage you want to translate Sir.")
+                passage=input("Enter your passage: ")
+                translator=Translator()
+                translation=translator.translate(passage)
+                translated_text=translation.text
+                print(translated_text)
+                speak(translated_text)
+            except Exception as e:
+                print(e)
+                speak("Sorry Sir, could not translate it.")
+                   
 
                            
 
