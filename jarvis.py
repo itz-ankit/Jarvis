@@ -8,10 +8,10 @@ import smtplib
 from googletrans import Translator
 
 
-engine=pyttsx3.init('sapi5')
-voices=engine.getProperty('voices')
-#print(voices[0].id)
-engine.setProperty('voice',voices[0].id)
+engine = pyttsx3.init('sapi5')
+voices = engine.getProperty('voices')
+# print(voices[0].id)
+engine.setProperty('voice', voices[0].id)
 
 
 def speak(audio):
@@ -21,73 +21,77 @@ def speak(audio):
 
 def wishMe():
     hour = int(datetime.datetime.now().hour)
-    if hour>=0 and hour<12:
+    if hour >= 0 and hour < 12:
         speak("Good Morning!")
-    elif hour>=12 and hour<18:
+    elif hour >= 12 and hour < 18:
         speak("Good Afternoon!")
     else:
         speak("Good Evening!")
-    speak("I am Jarvis Sir. Please tell me how may I help you")        
+    speak("I am Jarvis Sir. Please tell me how may I help you")
 
 
 def takeCommand():
-    #it takes microphone input from the user and returns string output
+    # it takes microphone input from the user and returns string output
 
-    r=sr.Recognizer()
+    r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
-        r.pause_threshold=1
-        audio=r.listen(source)
+        # r.pause_threshold=1
+        r.pause_threshold = 0.6  # Adjust this value as needed
+        r.energy_threshold = 4000  # Adjust this value as needed
+        audio = r.listen(source)
 
     try:
         print("Recognizing...")
-        query=r.recognize_google(audio, language='en-in')
+        query = r.recognize_google(audio, language='en-in')
         print(f"User said: {query}\n")
 
     except Exception as e:
         # print(e)
         print("Say that again please...")
         return "None"
-    return query        
+    return query
 
-#Not using my email and password for security issues
-def sendEmail(to,content):
-    server=smtplib.SMTP('smtp.gmail.com',587)
+# Not using my email and password for security issues
+
+
+def sendEmail(to, content):
+    server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo
     server.starttls()
     server.login('your-email@gmail.com', 'your-password')
     server.sendmail('your-email@gmail.com', to, content)
     server.close()
 
+
 if __name__ == "__main__":
     wishMe()
-    
+
     while True:
         query = takeCommand().lower()
 
         if 'iris switch back' in query:
-            engine=pyttsx3.init('sapi5')
-            voices=engine.getProperty('voices')
-            #print(voices[0].id)
-            engine.setProperty('voice',voices[0].id)
+            engine = pyttsx3.init('sapi5')
+            voices = engine.getProperty('voices')
+            # print(voices[0].id)
+            engine.setProperty('voice', voices[0].id)
             speak('Jarvis here Sir!')
 
         if not 'jarvis' in query:
             continue
 
         if 'switch' in query:
-            engine=pyttsx3.init('sapi5')
-            voices=engine.getProperty('voices')
-            #print(voices[0].id)
-            engine.setProperty('voice',voices[1].id)
+            engine = pyttsx3.init('sapi5')
+            voices = engine.getProperty('voices')
+            # print(voices[0].id)
+            engine.setProperty('voice', voices[1].id)
             speak('Hello there. I am Iris at your service master')
-   
 
         # Logic for executing tasks based on query
         if 'wikipedia' in query:
             speak('Searching Wikipedia...')
-            query=query.replace("Wikipedia", "")
-            results=wikipedia.summary(query, sentences=3)
+            query = query.replace("Wikipedia", "")
+            results = wikipedia.summary(query, sentences=3)
             speak("According to Wikipedia")
             print(results)
             speak(results)
@@ -102,10 +106,10 @@ if __name__ == "__main__":
             webbrowser.open("https://www.openai.com")
 
         elif 'open git' in query:
-            webbrowser.open("https://www.github.com")    
+            webbrowser.open("https://www.github.com")
 
         elif 'play music' in query:
-            music_dir=''
+            music_dir = ''
             songs = os.listdir(music_dir)
             print(songs)
             os.startfile(os.path.join(music_dir, songs[0]))
@@ -124,15 +128,15 @@ if __name__ == "__main__":
             os.startfile(codePath)
 
         elif 'open honkai' in query:
-            honkPath="E:\\Honkai Impact 3rd glb\\launcher.exe"
+            honkPath = "E:\\Honkai Impact 3rd glb\\launcher.exe"
             os.startfile(honkPath)
-                   
+
         elif 'email to myself' in query:
             try:
                 speak("What should I say?")
-                content=takeCommand()
-                to="your-email@gmail.com" #your email goes here
-                sendEmail(to,content)
+                content = takeCommand()
+                to = "your-email@gmail.com"  # your email goes here
+                sendEmail(to, content)
                 speak("Email has been sent!")
             except Exception as e:
                 print(e)
@@ -141,17 +145,12 @@ if __name__ == "__main__":
         elif 'translate' in query:
             try:
                 speak("Please provide me with the passage you want to translate Sir.")
-                passage=input("Enter your passage: ")
-                translator=Translator()
-                translation=translator.translate(passage)
-                translated_text=translation.text
+                passage = input("Enter your passage: ")
+                translator = Translator()
+                translation = translator.translate(passage)
+                translated_text = translation.text
                 print(translated_text)
                 speak(translated_text)
             except Exception as e:
                 print(e)
                 speak("Sorry Sir, could not translate it.")
-                   
-
-                           
-
-    
